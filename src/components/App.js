@@ -9,8 +9,14 @@ import '../styles/_form.scss';
 import '../styles/_footer.scss';
 import '../styles/_dummy.scss';
 import '../styles/_app.scss';
-
+import { useState } from 'react';
 function App() {
+  let [numberOfErrors, setErrors] = useState(0);
+  const handleClick = (ev) => {
+    ev.preventDefault();
+    setErrors (numberOfErrors + 1);
+    console.log (numberOfErrors);
+  }
   return (
     <div className="page">
       <header>
@@ -53,9 +59,10 @@ function App() {
               name="last-letter"
               id="last-letter"
             />
+            <input type='submit' value='Incrementar' onClick = {handleClick}></input>
           </form>
         </section>
-        <section className="dummy error-5">
+        <section className={`dummy error-${numberOfErrors}`}>
           <span className="error-13 eye"></span>
           <span className="error-12 eye"></span>
           <span className="error-11 line"></span>

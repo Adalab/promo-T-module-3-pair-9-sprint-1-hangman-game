@@ -13,9 +13,13 @@
   padding: 2rem;
   width: 100%;
   min-height: 100vh;
- // background-image: url('../images/blackboard.jpg');
+  background-image: url('../images/pizarra.jpeg');
   background-size: cover;
   background-position: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 // MAIN
