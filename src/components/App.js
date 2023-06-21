@@ -10,6 +10,7 @@ import '../styles/_footer.scss';
 import '../styles/_dummy.scss';
 import '../styles/_app.scss';
 import { useState } from 'react';
+
 function App() {
   let [numberOfErrors, setErrors] = useState(0);
   const handleClick = (ev) => {
@@ -17,6 +18,24 @@ function App() {
     setErrors (numberOfErrors + 1);
     console.log (numberOfErrors);
   }
+
+  let [lastLetter, setLastLetter] = useState('');
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    const inputText = event.target.value;
+    const lastCharacter = inputText.charAt(inputText.length - 1);
+     if (esLetraValida(lastCharacter)) {
+      setLastLetter(lastCharacter);
+    } else {
+      setErrors(numberOfErrors + 1);
+    }
+
+    const esLetraValida = (letra) => {
+    const alfabeto_espanol = "abcdefghijklmnñopqrstuvwxyzáéíóúü";
+    return alfabeto_espanol.includes(letra.toLowerCase());
+    console.log (esLetraValida);
+  };
+
   return (
     <div className="page">
       <header>
@@ -58,6 +77,8 @@ function App() {
               type="text"
               name="last-letter"
               id="last-letter"
+              value={lastLetter}
+              onChange={handleInputChange}
             />
             <input type='submit' value='Incrementar' onClick = {handleClick}></input>
           </form>
@@ -81,5 +102,5 @@ function App() {
     </div>
   );
 }
-
+}
 export default App;
