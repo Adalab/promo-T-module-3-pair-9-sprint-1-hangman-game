@@ -24,16 +24,16 @@ function App() {
     event.preventDefault();
     const inputText = event.target.value;
     const lastCharacter = inputText.charAt(inputText.length - 1);
-     if (esLetraValida(lastCharacter)) {
+    /*if (esLetraValida(lastCharacter)) {
       setLastLetter(lastCharacter);
     } else {
       setErrors(numberOfErrors + 1);
     }
 
-    const esLetraValida = (letra) => {
+    /*const esLetraValida = (letra) => {
     const alfabeto_espanol = "abcdefghijklmnñopqrstuvwxyzáéíóúü";
     return alfabeto_espanol.includes(letra.toLowerCase());
-    console.log (esLetraValida);
+    console.log (esLetraValida);*/
   };
 
   return (
@@ -101,6 +101,5 @@ function App() {
       </main>
     </div>
   );
-}
 }
 export default App;
