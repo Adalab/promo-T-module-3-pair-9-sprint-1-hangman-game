@@ -19,11 +19,14 @@ function App() {
     console.log (numberOfErrors);
   }
 
+  let [userLetters, setUserLetters] = useState ('');
   let [lastLetter, setLastLetter] = useState('');
   const handleInputChange = (event) => {
     event.preventDefault();
     const inputText = event.target.value;
-    const lastCharacter = inputText.charAt(inputText.length - 1);
+    let lastCharacter = inputText.charAt(inputText.length - 1);
+    setLastLetter(lastCharacter);
+    setUserLetters(lastCharacter);
     /*if (esLetraValida(lastCharacter)) {
       setLastLetter(lastCharacter);
     } else {
@@ -34,7 +37,22 @@ function App() {
     const alfabeto_espanol = "abcdefghijklmnñopqrstuvwxyzáéíóúü";
     return alfabeto_espanol.includes(letra.toLowerCase());
     console.log (esLetraValida);*/
-  };
+  
+   }
+  
+   let [word, setWord] = useState('katakroker');
+   const renderSolutionLetters = () => {
+    const wordLetters = word.split('');
+     return wordLetters.map ((letter) => {
+      //return (<li className="letter"></li>)
+      if (word.includes(lastLetter)) {
+        return (<li className="letter">{letter}</li>)
+      }
+     })
+
+    }
+
+
 
   return (
     <div className="page">
@@ -44,28 +62,15 @@ function App() {
       <main className="main">
         <section>
           <div className="solution">
-            <h2 className="title">Solución:</h2>
+            <h2 className="title">Solución:</h2> 
             <ul className="letters">
-              <li className="letter">k</li>
-              <li className="letter">a</li>
-              <li className="letter"></li>
-              <li className="letter">a</li>
-              <li className="letter">k</li>
-              <li className="letter">r</li>
-              <li className="letter"></li>
-              <li className="letter">k</li>
-              <li className="letter">e</li>
-              <li className="letter">r</li>
+              {renderSolutionLetters()}
             </ul>
           </div>
           <div className="error">
             <h2 className="title">Letras falladas:</h2>
             <ul className="letters">
-              <li className="letter">f</li>
-              <li className="letter">q</li>
-              <li className="letter">h</li>
-              <li className="letter">p</li>
-              <li className="letter">x</li>
+            
             </ul>
           </div>
           <form className="form">
@@ -101,5 +106,5 @@ function App() {
       </main>
     </div>
   );
-}
+};
 export default App;
