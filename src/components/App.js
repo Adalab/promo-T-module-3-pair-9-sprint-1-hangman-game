@@ -9,7 +9,8 @@ import '../styles/_form.scss';
 import '../styles/_footer.scss';
 import '../styles/_dummy.scss';
 import '../styles/_app.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 
 function App() {
   let [numberOfErrors, setErrors] = useState(0);
@@ -40,7 +41,7 @@ function App() {
   
    }
   
-   let [word, setWord] = useState('katakroker');
+   /*let [word, setWord] = useState('katakroker');
    const renderSolutionLetters = () => {
     const wordLetters = word.split('');
      return wordLetters.map ((letter) => {
@@ -49,12 +50,32 @@ function App() {
         return (<li className="letter">{letter}</li>)
       }
      })
+*/
 
-    }
+//Obtener palabra aleatoria de una API
+let [word, setWord] = useState(''); 
+const url = 'https://dev.adalab.es/api/random/word';
+useEffect(() => {
+    const handleFetchData = () => {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.word) {
+            setWord(data.word);
+          } else {
+            throw new Error('Error al obtener la palabra');
+          }
+        })
+        .catch((error) => {
+          console.error('Error de red:', error);
+        });
+    };
+
+    handleFetchData();
+  }, []);
 
 
-
-  return (
+return (
     <div className="page">
       <header>
         <h1 className="header__title">Juego del ahorcado</h1>
@@ -64,13 +85,11 @@ function App() {
           <div className="solution">
             <h2 className="title">Solución:</h2> 
             <ul className="letters">
-              {renderSolutionLetters()}
             </ul>
           </div>
           <div className="error">
             <h2 className="title">Letras falladas:</h2>
             <ul className="letters">
-            
             </ul>
           </div>
           <form className="form">
@@ -86,6 +105,9 @@ function App() {
               onChange={handleInputChange}
             />
             <input type='submit' value='Incrementar' onClick = {handleClick}></input>
+          <div>
+          <h2>Palabra aleatoria: {word} </h2>
+          </div>
           </form>
         </section>
         <section className={`dummy error-${numberOfErrors}`}>
@@ -106,5 +128,5 @@ function App() {
       </main>
     </div>
   );
-};
-export default App;
+
+} export default App;
